@@ -7,6 +7,9 @@
 }
 
 .main {
-  @apply pt-28 pb-6 flex flex-col items-center justify-between;
-  height: calc(100vh - 68px);
+  @apply relative pt-28 pb-6 flex flex-col items-center justify-between;
+}
+
+.title {
+  @apply text-center text-3xl  lg:text-4xl mb-8;
 }

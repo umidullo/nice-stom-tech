@@ -1,8 +1,34 @@
 import { useEffect, useState } from 'react';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 
+const getWindowDimensions = () => {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height,
+  };
+};
+
+const useWindowDimensions = () => {
+  const [windowDimensions, setWindowDimensions] = useState(
+    getWindowDimensions()
+  );
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowDimensions;
+};
+
 export default function Home() {
   const [navbar, setNavbar] = useState(false);
+  const { height } = useWindowDimensions();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
@@ -36,9 +62,11 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <div
               onClick={scrollToTop}
-              className="cursor-pointer font-bold text-4xl hover:text-blue-600 transition-all"
+              className="flex gap-2 items-center cursor-pointer font-bold hover:text-blue-600 transition-all"
             >
-              NST
+              <img src="./logo.png" alt="logo" className="w-10 h-10" />
+              <p className="hidden sm:block text-4xl">Nice Stom Tech</p>
+              <p className="sm:hidden text-4xl">NST</p>
             </div>
             <div className="flex">
               <nav className="max-[768px]:hidden">
@@ -69,7 +97,11 @@ export default function Home() {
                   </li>
                 </ul>
               </nav>
-              <div className="lang"></div>
+              <select name="lang" id="lang" className=" ml-6 text-black">
+                <option value="ru">ru</option>
+                <option value="uz">uz</option>
+                <option value="en">en</option>
+              </select>
             </div>
           </div>
         </div>
@@ -77,7 +109,10 @@ export default function Home() {
       <main>
         <section id="main">
           <div className="wrapper">
-            <div className="main">
+            <div
+              className="main"
+              style={{ height: `calc(${height}px - 68px)` }}
+            >
               <h2 className="font-normal text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-center leading-tight">
                 Зуботехническая лаборатория{' '}
                 <span className="text-blue-600">
@@ -88,24 +123,30 @@ export default function Home() {
               </h2>
               <AnchorLink
                 href="#services"
-                className="animate-bounce bg-zinc-900 p-6 rounded-full"
+                className="animate-bounce bg-zinc-900 p-4 xl:p-6 rounded-full"
               >
-                <img
-                  width={24}
-                  height={24}
-                  src="./arrow-down.svg"
-                  alt="arrow down"
-                />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                  />
+                </svg>
               </AnchorLink>
             </div>
           </div>
         </section>
         <section id="services">
           <div className="wrapper">
-            <div className="pt-14 pb-12 md:pt-18 md:pb-16 lg:pt-22 lg:pb-20 xl:pt-28 xl:pb-24 ">
-              <h3 className="text-center text-xl sm:text-2xl md:text-3xl lg:text-4xl  mb-8">
-                Наши услуги
-              </h3>
+            <div className="pt-14 pb-12 md:pt-18 md:pb-16 lg:pt-22 lg:pb-20 xl:pt-28 xl:pb-24">
+              <h3 className="title">Наши услуги</h3>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4 xl:gap-5">
                 <div className="relative w-full py-5 px-10 rounded-2xl overflow-hidden transition-all">
                   <h4 className="text-center text-2xl mb-5">
@@ -178,24 +219,32 @@ export default function Home() {
             </div>
           </div>
         </section>
-        {/* <section id="experience">
+        <section id="experience">
           <div className="wrapper">
-            <div className="pt-28 pb-24">
-              <h3 className="text-center text-4xl mb-5">Отраслевой опыт</h3>
-              <div className="grid grid-cols-3 gap-5">
-                <div className="relative overflow-hidden w-full p-8 rounded-2xl transition-all">
-                  <h5 className="text-center text-9xl font-black mb-6">7+</h5>
-                  <p className="text-center text-4xl">Лет опыта</p>
+            <div className="pt-14 pb-12 md:pt-18 md:pb-16 lg:pt-22 lg:pb-20 xl:pt-28 xl:pb-24">
+              <h3 className="title">Отраслевой опыт</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 lg:grid-rows-1 lg:grid-cols-3 gap-3 lg:gap-4 xl:gap-5">
+                <div className="relative overflow-hidden w-full p-5 xl:p-8 rounded-2xl transition-all">
+                  <h5 className="text-center text-7xl xl:text-9xl font-black mb-2 xl:mb-6">
+                    7+
+                  </h5>
+                  <p className="text-center text-xl xl:text-4xl">Лет опыта</p>
                   <div className="absolute top-0 left-0 right-0 bottom-0 bg-white opacity-10"></div>
                 </div>
-                <div className="relative overflow-hidden w-full p-8 rounded-2xl transition-all">
-                  <h5 className="text-center text-9xl font-black mb-6">10+</h5>
-                  <p className="text-center text-4xl">Сотрудники</p>
+                <div className="relative overflow-hidden w-full p-5 xl:p-8 rounded-2xl transition-all">
+                  <h5 className="text-center text-7xl xl:text-9xl font-black mb-2 xl:mb-6">
+                    10+
+                  </h5>
+                  <p className="text-center text-xl xl:text-4xl">Сотрудники</p>
                   <div className="absolute top-0 left-0 right-0 bottom-0 bg-white opacity-10"></div>
                 </div>
-                <div className="relative overflow-hidden w-full p-8 rounded-2xl transition-all">
-                  <h5 className="text-center text-9xl font-black mb-6">12+</h5>
-                  <p className="text-center text-4xl">Клиник доверяют нам</p>
+                <div className="relative overflow-hidden w-full p-5 xl:p-8 rounded-2xl transition-all md:col-span-2 lg:col-auto">
+                  <h5 className="text-center text-7xl xl:text-9xl font-black mb-2 xl:mb-6">
+                    12+
+                  </h5>
+                  <p className="text-center text-xl xl:text-4xl">
+                    Клиник доверяют нам
+                  </p>
                   <div className="absolute top-0 left-0 right-0 bottom-0 bg-white opacity-10"></div>
                 </div>
               </div>
@@ -204,12 +253,12 @@ export default function Home() {
         </section>
         <section id="contacts">
           <div className="wrapper">
-            <div className="pt-28 pb-24">
-              <h3 className="text-center text-4xl mb-8">Наши контакты</h3>
-              <div className="mb-8 flex justify-between items-center">
+            <div className="pt-14 pb-12 md:pt-18 md:pb-16 lg:pt-22 lg:pb-20 xl:pt-28 xl:pb-24">
+              <h3 className="title">Наши контакты</h3>
+              <div className="mb-8 flex flex-col gap-3 lg:gap-5 lg:flex-row justify-between items-center">
                 <a
                   href="tel:998970012602"
-                  className="flex gap-4 items-center text-center text-2xl hover:text-blue-600"
+                  className="flex gap-2 lg:gap-4 items-center text-center text-xl lg:text-2xl hover:text-blue-600"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -230,7 +279,7 @@ export default function Home() {
                 <a
                   href="https://yandex.uz/maps/-/CCUrUIvPCC"
                   target="_blank"
-                  className="flex gap-4 items-center text-center text-2xl hover:text-blue-600"
+                  className="flex gap-2 lg:gap-4 items-center text-center text-xl lg:text-2xl hover:text-blue-600"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -255,7 +304,7 @@ export default function Home() {
                 </a>
                 <a
                   href="mailto:info@nicestomtech.uz"
-                  className="flex gap-4 items-center text-center text-2xl hover:text-blue-600"
+                  className="flex gap-2 lg:gap-4 items-center text-center text-xl lg:text-2xl hover:text-blue-600"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -274,31 +323,29 @@ export default function Home() {
                   <span>info@nicestomtech.uz</span>
                 </a>
               </div>
-              <div className="grid grid-cols-1 gap-5">
-                <div className="relative overflow-hidden w-full rounded-2xl transition-all">
-                  <div className="relative overflow-hidden">
-                    <a
-                      href="https://yandex.uz/maps/org/146632874605/?utm_medium=mapframe&utm_source=maps"
-                      className="absolute top-0 text-xs text-[#eee]"
-                    >
-                      Dental Clinik
-                    </a>
-                    <a
-                      href="https://yandex.uz/maps/10335/tashkent/category/dental_clinics/184106132/?utm_medium=mapframe&utm_source=maps"
-                      className="absolute top-[14px] text-xs text-[#eee]"
-                    >
-                      Стоматологическая клиника в Ташкенте
-                    </a>
-                    <iframe
-                      src="https://yandex.uz/map-widget/v1/-/CCUryEeRGD"
-                      className="relative w-full aspect-[3/1]"
-                    ></iframe>
-                  </div>
+              <div className="relative overflow-hidden w-full rounded-2xl transition-all">
+                <div className="relative overflow-hidden">
+                  <a
+                    href="https://yandex.uz/maps/org/146632874605/?utm_medium=mapframe&utm_source=maps"
+                    className="absolute top-0 text-xs text-[#eee]"
+                  >
+                    Dental Clinik
+                  </a>
+                  <a
+                    href="https://yandex.uz/maps/10335/tashkent/category/dental_clinics/184106132/?utm_medium=mapframe&utm_source=maps"
+                    className="absolute top-[14px] text-xs text-[#eee]"
+                  >
+                    Стоматологическая клиника в Ташкенте
+                  </a>
+                  <iframe
+                    src="https://yandex.uz/map-widget/v1/-/CCUryEeRGD"
+                    className="relative w-full aspect-square md:aspect-[3/2] lg:aspect-[3/1]"
+                  ></iframe>
                 </div>
               </div>
             </div>
           </div>
-        </section> */}
+        </section>
       </main>
       <footer className="bg-zinc-900 text-zinc-600">
         <div className="wrapper py-5 flex items-center justify-between max-[450px]:flex-col">
