@@ -1,0 +1,35 @@
+.button {
+  @apply inline-block px-6 py-3
+  shadow-md font-bold text-center text-white uppercase 
+  align-middle transition-all rounded-lg cursor-pointer  text-xs bg-gradient-to-tl disabled:from-gray-600 disabled:to-slate-400 disabled:cursor-not-allowed;
+}
+.button:hover {
+  @apply shadow-lg;
+  scale: 1.02;
+}
+
+.button:active {
+  opacity: 0.85;
+}
+
+.button:disabled {
+  @apply from-gray-300 to-gray-100 text-black shadow-none;
+  scale: 1;
+  opacity: 0.85;
+}
+
+.primary {
+  @apply from-gray-900 to-slate-700;
+}
+.success {
+  @apply from-green-600 to-lime-400;
+}
+.info {
+  @apply from-blue-600 to-cyan-400;
+}
+.warn {
+  @apply from-red-500 to-yellow-400;
+}
+.error {
+  @apply from-red-600 to-rose-400;
+}

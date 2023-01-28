@@ -1,0 +1,44 @@
+.navBar {
+  @apply w-72 h-screen;
+}
+.navBar__wrapper {
+  @apply bg-slate-800
+    p-3
+    overflow-auto
+    h-full 
+    flex
+    flex-col
+    justify-between;
+}
+
+.nav ul {
+  @apply flex flex-col;
+}
+.nav ul li {
+  @apply py-1;
+}
+
+.link {
+  @apply w-full
+  px-3 py-2 rounded-lg
+  capitalize text-zinc-200 inline-block
+  bg-transparent font-bold;
+}
+.link svg {
+  @apply inline-block mr-4;
+}
+
+.link:hover {
+  @apply bg-slate-700;
+}
+
+.active_link {
+  @apply inline-block
+  w-full
+  text-indigo-400
+  px-3 py-2 rounded-lg
+  capitalize font-bold;
+}
+.active_link svg {
+  @apply inline-block mr-4;
+}

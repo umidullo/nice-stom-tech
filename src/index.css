@@ -2,14 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-.wrapper {
-  @apply max-w-7xl w-full m-auto px-3;
-}
-
-.main {
-  @apply relative pt-28 pb-6 flex flex-col items-center justify-between;
-}
-
-.title {
-  @apply text-center text-3xl  lg:text-4xl mb-8;
+.btn {
+  @apply inline-block px-6 py-3
+  shadow-md font-bold text-center text-white uppercase 
+  align-middle transition-all rounded-lg cursor-pointer  text-xs bg-gradient-to-tl disabled:from-gray-600 disabled:to-slate-400 disabled:cursor-not-allowed;
 }

@@ -6,8 +6,8 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontFamily: ['Ubuntu', 'sans-serif']
+      fontFamily: ['Ubuntu', 'sans-serif'],
     },
   },
-  plugins: [],
+  plugins: []
 }
