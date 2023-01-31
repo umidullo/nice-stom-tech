@@ -19,6 +19,13 @@ export type Order = {
   material: string;
   services: Service[];
 };
+export type OrderTest = {
+  doctorId: string;
+  patientId: string;
+  color: string;
+  material: string;
+  services: Service[];
+};
 
 export type Service = {
   name: string;

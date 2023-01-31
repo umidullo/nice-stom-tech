@@ -15,6 +15,7 @@ const DoctorsPage = () => {
   console.log(doctors);
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isPatchModalOpen, setIsPatchModalOpen] = useState(false);
 
   useEffect(() => {
     dispatch(getDoctors());
@@ -59,9 +60,7 @@ const DoctorsPage = () => {
           <div className="flex items-center justify-center gap-3 text-gray-600">
             <button
               className="hover:text-blue-500"
-              onClick={() =>
-                dispatch(deleteDoctor(props.cell.row.original._id))
-              }
+              onClick={() => setIsPatchModalOpen(true)}
             >
               <PencilSquareIcon className="w-5 h-5" />
             </button>

@@ -23,8 +23,9 @@ const OrderModal = ({ isOpen, setIsOpen }: OrderModalProps) => {
 
   const submitHandler: SubmitHandler<Patient> = (data) => {
     console.log(data);
-    dispatch(createPatient(data));
-    // reset();
+    dispatch(createPatient({ ...data, phoneNumber: +data.phoneNumber }));
+    reset();
+    setIsOpen(false);
   };
 
   return (

@@ -2,20 +2,17 @@ import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import React, { useEffect, useState } from 'react';
 import { Column } from 'react-table';
 import Button from '~/components/Button/Button';
-import DoctorModal from '~/components/Modals/DoctorModal';
 import PatientModal from '~/components/Modals/PatientModal';
 import Table from '~/components/Table/Table';
 import { useAppDispatch, useAppSelector } from '~/hooks';
-import { deleteDoctor } from '~/store/slices/doctors.slice';
 import { Patient } from '~/types/temp';
-import { getPatients } from '../../store/slices/patients.slice';
+import { deletePatient, getPatients } from '~/store/slices/patients.slice';
 
 const PatientsPage = () => {
   const dispatch = useAppDispatch();
   const { patients, patientsLoading } = useAppSelector(
     (state) => state.patients
   );
-
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -61,16 +58,16 @@ const PatientsPage = () => {
           <div className="flex items-center justify-center gap-3 text-gray-600">
             <button
               className="hover:text-blue-500"
-              onClick={() =>
-                dispatch(deleteDoctor(props.cell.row.original._id))
-              }
+              onClick={() => {
+                console.log(props.cell.row.original._id);
+              }}
             >
               <PencilSquareIcon className="w-5 h-5" />
             </button>
             <button
               className="hover:text-red-500"
               onClick={() =>
-                dispatch(deleteDoctor(props.cell.row.original._id))
+                dispatch(deletePatient(props.cell.row.original._id))
               }
             >
               <TrashIcon className="w-5 h-5" />

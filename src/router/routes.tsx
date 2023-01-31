@@ -4,7 +4,6 @@ import {
   UsersIcon,
 } from '@heroicons/react/24/outline';
 import { ClinicPage, DoctorsPage, LabPage, PatientsPage } from '~/pages';
-import TestPage from '~/pages/TestPage/TestPage';
 
 export const ROUTES = [
   {
@@ -33,13 +32,6 @@ export const ROUTES = [
     name: 'patients',
     icon: <UsersIcon className="h-6 w-6" />,
     component: <PatientsPage />,
-    permission: ['super-admin'],
-  },
-  {
-    path: 'test',
-    name: 'test',
-    icon: <UsersIcon className="h-6 w-6" />,
-    component: <TestPage />,
     permission: ['super-admin'],
   },
 ];
